@@ -4,8 +4,6 @@ N1ED CKEditor
 
 This is a Django app to use N1ED pro plugin for ckeditor.
 
-Detailed documentation is in the "docs" directory.
-
 Quick start
 -----------
 
