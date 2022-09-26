@@ -34,3 +34,5 @@ class N1EDCKEditorWidget(CKEditorWidget):
             'remove_plugins', None) or ''
         if remove_plugins:
             self.config['removePlugins'] = remove_plugins
+
+        self.config['allowedContent'] = True
