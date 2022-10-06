@@ -1,6 +1,7 @@
 from ckeditor.widgets import CKEditorWidget
 
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 
 
 class N1EDCKEditorWidget(CKEditorWidget):
@@ -36,3 +37,25 @@ class N1EDCKEditorWidget(CKEditorWidget):
             self.config['removePlugins'] = remove_plugins
 
         self.config['allowedContent'] = True
+
+        n1ed_flmngr_conf = getattr(settings, 'N1ED_CKEDITOR_FLMNGR_CONFIG', None)
+
+        if n1ed_flmngr_conf:
+            if isinstance(n1ed_flmngr_conf, dict):
+                if 'accessKey' in n1ed_flmngr_conf:
+                    pass
+                else:
+                    raise ImproperlyConfigured('No accessKey found in your configuration')
+                if 'urlFileManager' in n1ed_flmngr_conf:
+                    pass
+                else:
+                    raise ImproperlyConfigured('No urlFileManager found in your configuration')
+                if 'urlFiles' in n1ed_flmngr_conf:
+                    pass
+                else:
+                    raise ImproperlyConfigured('No urlFiles found in your configuration')
+                self.config['Flmngr'] = n1ed_flmngr_conf
+            else:
+                raise ImproperlyConfigured(
+                    'N1ED_CKEDITOR_FLMNGR_CONFIG must be a dictionary type.'
+                )
